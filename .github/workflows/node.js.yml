@@ -31,6 +31,29 @@ jobs:
         run: pod install --repo-update
         working-directory: ios
 
+      - name: Create exportOptions.plist
+        run: |
+          echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+          <plist version=\"1.0\">
+          <dict>
+              <key>method</key>
+              <string>development</string>
+              <key>signingStyle</key>
+              <string>manual</string>
+              <key>compileBitcode</key>
+              <false/>
+              <key>destination</key>
+              <string>export</string>
+              <key>manageAppVersionAndBuildNumber</key>
+              <false/>
+              <key>signingCertificate</key>
+              <string></string>
+              <key>signingTeam</key>
+              <string></string>
+          </dict>
+          </plist>" > ios/exportOptions.plist
+        working-directory: ios
+
       - name: Build iOS app without signing
         run: xcodebuild archive -workspace ios/NewProject.xcworkspace -scheme NewProject -configuration Release -sdk iphoneos -archivePath $PWD/build/NewProject.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
