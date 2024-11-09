@@ -51,8 +51,9 @@ jobs:
               <key>signingTeam</key>
               <string></string>
           </dict>
-          </plist>" > ios/exportOptions.plist
+          </plist>" > exportOptions.plist
         working-directory: ios
+
 
       - name: Build iOS app without signing
         run: xcodebuild archive -workspace ios/NewProject.xcworkspace -scheme NewProject -configuration Release -sdk iphoneos -archivePath $PWD/build/NewProject.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
