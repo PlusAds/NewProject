@@ -71,4 +71,3 @@ jobs:
           tag: v1.0
           overwrite: true
           body: "This is the first release"
-
