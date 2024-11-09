@@ -55,6 +55,11 @@ jobs:
         working-directory: ios
 
 
+      - name: Set Xcode Developer Team
+        run: |
+          xcodebuild -workspace ios/NewProject.xcworkspace -scheme NewProject -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO -showBuildSettings | grep DEVELOPMENT_TEAM
+        working-directory: ios
+
       - name: Build iOS app without signing
         run: xcodebuild archive -workspace ios/NewProject.xcworkspace -scheme NewProject -configuration Release -sdk iphoneos -archivePath $PWD/build/NewProject.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
