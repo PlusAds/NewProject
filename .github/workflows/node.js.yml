@@ -51,7 +51,7 @@ jobs:
               <key>signingTeam</key>
               <string></string>
           </dict>
-          </plist>" > exportOptions.plist
+          </plist>" > ios/exportOptions.plist
         working-directory: ios
 
       - name: Build iOS app without signing
