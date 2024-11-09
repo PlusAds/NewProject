@@ -58,8 +58,7 @@ jobs:
         run: xcodebuild archive -workspace ios/NewProject.xcworkspace -scheme NewProject -configuration Release -sdk iphoneos -archivePath $PWD/build/NewProject.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 
       - name: Export .ipa file without signing
-        run: xcodebuild -exportArchive -archivePath $PWD/build/NewProject.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath $PWD/build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-
+        run: xcodebuild -exportArchive -archivePath $PWD/build/NewProject.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath $PWD/build -exportCodeSigningIdentity "-" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO PROVISIONING_PROFILE="YourWildcardProvisioningProfileID" 
       - name: Rename .ipa file
         run: mv build/NewProject.ipa build/ReactNativeIpaExport.ipa
 
