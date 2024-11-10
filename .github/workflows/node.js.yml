@@ -54,17 +54,20 @@ jobs:
           </plist>" > exportOptions.plist
         working-directory: ios
 
-      - name: Build iOS app without signing
-        run: xcodebuild archive -workspace ios/NewProject.xcworkspace -scheme NewProject -configuration Release -sdk iphoneos -archivePath $PWD/build/NewProject.xcarchive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-
-      - name: Export .ipa file without signing
+      - name: Set Team ID (replace with your Apple Team ID or a placeholder if you don't have one)  
         run: |
-          xcodebuild -exportArchive -archivePath $PWD/build/NewProject.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath $PWD/build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-          echo "exportOptionsPlist: ios/exportOptions.plist"
+          sed -i '' 's/<key>DEVELOPMENT_TEAM<\/key>/\n<key>DEVELOPMENT_TEAM<\/key>\n<string>XXXXXXXXXX<\/string>/g' ios/NewProject.xcodeproj/project.pbxproj
+        working-directory: ios
+
+      - name: Build and export IPA (unsigned)
+        run: |
+          xcodebuild -workspace ios/NewProject.xcworkspace -scheme NewProject -configuration Release -sdk iphoneos -archivePath build/NewProject.xcarchive -derivedDataPath build archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          xcodebuild -exportArchive -archivePath build/NewProject.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath build -allowProvisioningUpdates SKIP_INSTALL=NO
+        working-directory: ios
+
 
       - name: Rename .ipa file
         run: mv build/NewProject.ipa build/ReactNativeIpaExport.ipa
-
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
