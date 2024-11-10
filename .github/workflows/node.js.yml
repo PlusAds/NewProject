@@ -59,8 +59,8 @@ jobs:
 
       - name: Export .ipa file without signing
         run: |
-          xcodebuild -exportArchive -archivePath $PWD/build/NewProject.xcarchive -exportOptionsPlist ios/exportOptions.plist -exportPath $PWD/build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-          echo "exportOptionsPlist: ios/exportOptions.plist"
+          xcodebuild -exportArchive -archivePath $PWD/build/NewProject.xcarchive -exportOptionsPlist exportOptions.plist -exportPath $PWD/build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          echo "exportOptionsPlist: exportOptions.plist"
         working-directory: ios
 
       - name: Rename .ipa file
